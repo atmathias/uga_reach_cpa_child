@@ -57,3 +57,45 @@ if(exists("df_c_time_btn_survey")){
 }
 
 # Logical checks ----------------------------------------------------------
+
+
+# spatial checks ----------------------------------------------------------
+
+sample_pt_nos <- df_sample_data %>% 
+  mutate(unique_pt_number = paste0(status, "_", Name)) %>% 
+  pull(unique_pt_number) %>% 
+  unique()
+
+# duplicate point numbers
+df_c_duplicate_pt_nos <- check_duplicate_pt_numbers(input_tool_data = df_tool_data,
+                                                    input_sample_pt_nos_list = sample_pt_nos)
+
+if(exists("df_c_duplicate_pt_nos")){
+  if(nrow(df_c_duplicate_pt_nos) > 0){
+    logic_output$df_c_duplicate_pt_nos <- df_c_duplicate_pt_nos
+  }
+}
+
+# pt id does not exist in sample
+df_c_pt_not_in_sample <- check_pt_number_not_in_samples(input_tool_data = df_tool_data, 
+                                                        input_sample_pt_nos_list = sample_pt_nos)
+
+if(exists("df_c_pt_not_in_sample")){
+  if(nrow(df_c_pt_not_in_sample) > 0){
+    logic_output$df_c_pt_not_in_sample <- df_c_pt_not_in_sample
+  }
+}
+
+# check for exceeded threshold distance
+
+threshold_dist <- 150
+
+df_c_greater_thresh_distance <- check_threshold_distance(input_sample_data = df_sample_data,
+                                                         input_tool_data = df_tool_data,
+                                                         input_threshold_dist = threshold_dist)
+
+if(exists("df_c_greater_thresh_distance")){
+  if(nrow(df_c_greater_thresh_distance) > 0){
+    logic_output$df_c_greater_thresh_distance <- df_c_greater_thresh_distance
+  }
+}
