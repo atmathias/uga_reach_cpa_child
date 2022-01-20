@@ -104,3 +104,9 @@ if(exists("df_c_greater_thresh_distance")){
 
 df_logic_checks <- bind_rows(logic_output)
 
+# others checks
+
+df_others_data <- extract_other_data(input_tool_data = df_tool_data, 
+                                     input_survey = df_survey, 
+                                     input_choices = df_choices)
+
