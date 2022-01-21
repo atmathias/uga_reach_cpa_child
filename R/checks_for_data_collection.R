@@ -19,8 +19,8 @@ df_tool_data <- readxl::read_excel("inputs/Child_Protection_Assessment_Child_Too
          !str_detect(string = point_number, pattern = fixed('test', ignore_case = TRUE))
   )
 
-df_survey <- readxl::read_excel("inputs/Child_Protection_Child_Tool.xlsx", sheet = "survey")
-df_choices <- readxl::read_excel("inputs/Child_Protection_Child_Tool.xlsx", sheet = "choices")
+df_survey <- readxl::read_excel("inputs/Child_Protection_Assessment_Child_Tool.xlsx", sheet = "survey")
+df_choices <- readxl::read_excel("inputs/Child_Protection_Assessment_Child_Tool.xlsx", sheet = "choices")
 
 df_sample_data <- sf::st_read("inputs/cpa_child_settlement_host_samples.gpkg", quiet = TRUE)
 
