@@ -276,3 +276,13 @@ check_threshold_distance <- function(input_sample_data, input_tool_data, input_t
       rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
   }
 }
+
+last_date_in_tool_data <- function(input_tool_data) {
+  input_tool_data %>%
+    mutate(start_date = as_date(start)) %>% 
+    select(start_date) %>% 
+    unique() %>% 
+    arrange(start_date) %>% 
+    last() %>% 
+    str_replace_all(pattern = "-", replacement = "_")
+}
