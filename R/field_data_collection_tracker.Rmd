@@ -290,4 +290,6 @@ df_cl_log %>%
                    stroke = FALSE, fillOpacity = 0.9,
                    label = labels_pts,
                    clusterOptions = markerClusterOptions())
-```
+``````
+
+
