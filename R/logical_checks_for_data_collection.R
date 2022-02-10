@@ -392,8 +392,6 @@ if(exists("df_c_logic_child_labour_protection_services_sought")){
     logic_output$df_c_logic_child_labour_protection_services_sought <- df_c_logic_child_labour_protection_services_sought
   }
 }
-
-
 # protection_services_for_child_16 ----------------------------------------
 df_c_logic_protection_services_for_child_a <- df_tool_data %>% 
   filter(protection_services_for_child_violence == "no", protection_services_for_child_physical_harm == "yes"
