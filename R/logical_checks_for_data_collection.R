@@ -290,6 +290,46 @@ if(exists("df_c_logic_children_get_involved_in_harsh_work_mismatch")){
     logic_output$df_c_logic_children_get_involved_in_harsh_work_mismatch <- df_c_logic_children_get_involved_in_harsh_work_mismatch
   }
 }
+# child_labour_economic_types_10 ------------------------------------------
+df_c_logic_child_labour_economic_types <- df_tool_data %>% 
+  filter(!child_labour_economic_types %in% c("bonded_labour_or_slavery", "construction", "charcoal_burning", 
+                                             "handling_of_heavy_loads", "mining", "sand_mining", 
+                                             "producing_and_or_trafficking_or_selling_drugs", 
+                                             "sale_or_trafficking_of_children_for_labour_purposes", "sexual_exploitation", 
+                                             "stone_quarrying", "working_with_armed_groups"),
+         specific_types_of_harsh_labour_child_involved_since_covid %in% c("bonded_labour", "slavery", "construction", 
+                                                                          "charcoal_burning", "handling_of_heavy_loads", 
+                                                                          "sand_mining", "producing_and_or_trafficking_or_selling_drugs", 
+                                                                          "sale_or_trafficking_of_children", "sexual_exploitation", 
+                                                                          "stone_quarrying", "working_with_armed_groups")) %>% 
+  mutate(i.check.type = "remove_option",
+         i.check.name = "child_labour_economic_types",
+         i.check.current_value = child_labour_economic_types,
+         i.check.value = "",
+         i.check.issue_id = "child_labour_economic_types_10",
+         i.check.issue = glue("specific_types_of_harsh_labour_child_involved_since_covid: {specific_types_of_harsh_labour_child_involved_since_covid}"),
+         i.check.other_text = "",
+         i.check.checked_by = "",
+         i.check.checked_date = as_date(today()),
+         i.check.comment = "", 
+         i.check.reviewed = "",
+         i.check.adjust_log = "",
+         i.check.uuid_cl = "",
+         i.check.so_sm_choices = "") %>% 
+  dplyr::select(starts_with("i.check"))%>% 
+  rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = "")) %>% 
+  separate(col = "current_value", into = c("x_1", "x_2", "x_3", "x_4", "x_5", "x_6"), sep = " " , remove = FALSE) %>%
+  pivot_longer(cols = "x_1" : "x_6", names_to = "split_var", values_to = "current_value_created") %>% 
+  filter(!is.na(current_value_created)) %>% 
+  mutate(value = current_value_created) %>% 
+  select(-c("split_var", "current_value_created"))
+
+if(exists("df_c_logic_child_labour_economic_types")){
+  if(nrow(df_c_logic_child_labour_economic_types) > 0){
+    logic_output$df_c_logic_child_labour_economic_types <- df_c_logic_child_labour_economic_types
+  }
+}
+
 
 
 
