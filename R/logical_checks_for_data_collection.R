@@ -336,7 +336,7 @@ df_c_logic_child_labour_economic_types_harsh_work <- df_tool_data %>%
                                              "producing_and_or_trafficking_or_selling_drugs", 
                                              "sale_or_trafficking_of_children_for_labour_purposes", "sexual_exploitation", 
                                              "stone_quarrying", "working_with_armed_groups"),
-         action_child_takes_when_told_to_do_harsh_work %in% c("I_just_do_the_work")) %>% 
+         action_child_takes_when_told_to_do_harsh_work %in% c("i_just_do_the_work")) %>% 
   mutate(i.check.type = "remove_option",
          i.check.name = "child_labour_economic_types",
          i.check.current_value = child_labour_economic_types,
