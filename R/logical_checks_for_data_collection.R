@@ -260,7 +260,36 @@ if(exists("df_c_logic_parents_responsible_to_provide_child_contradict")){
     logic_seperate_output$df_c_logic_parents_responsible_to_provide_child_contradict <- df_c_logic_parents_responsible_to_provide_child_contradict
   }
 }
+# frequency_children_get_involved_in_harsh_work_9 -------------------------
+df_c_logic_children_get_involved_in_harsh_work_mismatch <- df_tool_data %>% 
+  filter(child_labour_economic_types %in% c("bonded_labour_or_slavery", "construction", 
+                                            "charcoal_burning", "handling_of_heavy_loads", "mining", 
+                                            "sand_mining", "producing_and_or_trafficking_or_selling_drugs", 
+                                            "sale_or_trafficking_of_children_for_labour_purposes", "sexual_exploitation", 
+                                            "stone_quarrying", "working_with_armed_groups"),
+         frequency_children_get_involved_in_harsh_work == "never") %>% 
+  mutate(i.check.type = "change_response",
+         i.check.name = "frequency_children_get_involved_in_harsh_work",
+         i.check.current_value = frequency_children_get_involved_in_harsh_work,
+         i.check.value = "",
+         i.check.issue_id = "frequency_children_get_involved_in_harsh_work_9",
+         i.check.issue = glue("child_labour_economic_types: {child_labour_economic_types}"),
+         i.check.other_text = "",
+         i.check.checked_by = "",
+         i.check.checked_date = as_date(today()),
+         i.check.comment = "", 
+         i.check.reviewed = "",
+         i.check.adjust_log = "",
+         i.check.uuid_cl = "",
+         i.check.so_sm_choices = "") %>% 
+  dplyr::select(starts_with("i.check"))%>% 
+  rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
+if(exists("df_c_logic_children_get_involved_in_harsh_work_mismatch")){
+  if(nrow(df_c_logic_children_get_involved_in_harsh_work_mismatch) > 0){
+    logic_output$df_c_logic_children_get_involved_in_harsh_work_mismatch <- df_c_logic_children_get_involved_in_harsh_work_mismatch
+  }
+}
 
 
 
