@@ -364,7 +364,34 @@ if(exists("df_c_logic_child_labour_economic_types_harsh_work")){
     logic_output$df_c_logic_child_labour_economic_types_harsh_work <- df_c_logic_child_labour_economic_types_harsh_work
   }
 }
+# child_labour_protection_services_sought_12 ------------------------------------------
+df_c_logic_child_labour_protection_services_sought <- df_tool_data %>% 
+  filter(action_child_takes_when_told_to_do_harsh_work %in% c("i_report_it_to_ngo_staff", "i_report_it_to_parasocial_worker", 
+                                                              "i_report_it_to_the_child_protection_committees", "i_report_it_to_the_police", 
+                                                              "i_report_it_to_the_rwc"),
+         child_labour_protection_services_sought == "no") %>% 
+  mutate(i.check.type = "change_response",
+         i.check.name = "child_labour_protection_services_sought",
+         i.check.current_value = child_labour_protection_services_sought,
+         i.check.value = "",
+         i.check.issue_id = "child_labour_protection_services_sought_12",
+         i.check.issue = glue("action_child_takes_when_told_to_do_harsh_work: {action_child_takes_when_told_to_do_harsh_work}"),
+         i.check.other_text = "",
+         i.check.checked_by = "",
+         i.check.checked_date = as_date(today()),
+         i.check.comment = "", 
+         i.check.reviewed = "",
+         i.check.adjust_log = "",
+         i.check.uuid_cl = "",
+         i.check.so_sm_choices = "") %>% 
+  dplyr::select(starts_with("i.check"))%>% 
+  rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = "")) 
 
+if(exists("df_c_logic_child_labour_protection_services_sought")){
+  if(nrow(df_c_logic_child_labour_protection_services_sought) > 0){
+    logic_output$df_c_logic_child_labour_protection_services_sought <- df_c_logic_child_labour_protection_services_sought
+  }
+}
 
 
 # protection_services_for_child_16 ----------------------------------------
