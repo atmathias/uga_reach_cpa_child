@@ -22,19 +22,43 @@ library(glue)
 library(leaflet)
 
 # read data 
-df_settlement_samples_required <- readr::read_csv("../inputs/Refugee_child_survey_samples_definition.csv") %>% 
+
+df_settlement_samples <- readr::read_csv("../inputs/Refugee_child_survey_samples_definition.csv") %>% 
+  filter(!is.na(settlement))
+
+df_for_colnames <- df_settlement_samples %>% 
+  mutate(district_name = str_to_lower(District),
+         district_name = str_replace_all(string = district_name, pattern = " ", replacement = "_"),
+         refugee_settlement = str_to_lower(settlement),
+         refugee_settlement = str_replace_all(string = refugee_settlement, pattern = " ", replacement = "_")) %>% 
+  select(district_name, refugee_settlement) %>% 
+  unique()
+
+df_settlement_samples_required <- df_settlement_samples %>% 
   rename(refugee_settlement = settlement) %>% 
   select(refugee_settlement, sample_size) %>% 
   mutate(refugee_settlement = str_to_lower(refugee_settlement),
          refugee_settlement = str_replace_all(string = refugee_settlement, pattern = " ", replacement = "_")
          )
 
-df_host_samples_required <- readr::read_csv("../inputs/Host_community_child_survey_samples_definition.csv")%>% 
+df_host_samples <- readr::read_csv("../inputs/Host_community_child_survey_samples_definition.csv")
+
+df_for_host_colnames <- df_host_samples %>% 
+  rename(sub_county_div =  Sub_county ) %>%
+  mutate(district_name = str_to_lower(District),
+         district_name = str_replace_all(string = district_name, pattern = " ", replacement = "_"),
+    sub_county_div = str_to_lower(sub_county_div),
+         sub_county_div = str_replace_all(string = sub_county_div, pattern = " ", replacement = "_")
+  ) %>% 
+  select(district_name, sub_county_div) %>% 
+  unique()
+
+df_host_samples_required <- df_host_samples %>% 
   rename(sub_county_div =  Sub_county ) %>%
   select(sub_county_div, sample_size) %>% 
   mutate(sub_county_div = str_to_lower(sub_county_div),
          sub_county_div = str_replace_all(string = sub_county_div, pattern = " ", replacement = "_")
-         )
+  )
 
 df_tool_data <- readxl::read_excel("../inputs/UGA2109_Cross_Sectoral_Child_Protection_Assessment_Child_Data.xlsx") %>% 
   mutate(uuid = `_uuid`,
@@ -109,7 +133,7 @@ dt_with_modified_options <- function(x){
   DT::datatable(x,
                 rownames = FALSE,
                 options = list(
-                  columnDefs = list(list(className = 'dt-center', targets = list(1,2))),
+                  columnDefs = list(list(className = 'dt-center', targets = list(1,2,3,4,5))),
                   pageLength = 20,
                   initComplete = JS(
                     "function(settings, json) {",
@@ -171,11 +195,16 @@ df_updated_tool_data %>%
   group_by(district_name, refugee_settlement) %>% 
   summarise(number_of_surveys = n()) %>% 
   arrange(district_name) %>% 
-  left_join(df_refugee_samp_per_settlement, by = "refugee_settlement") %>% 
+  right_join(df_refugee_samp_per_settlement, by = "refugee_settlement") %>% 
   left_join(df_cl_surveys_for_deletion, by = "refugee_settlement") %>% 
-  mutate(int.surveys_and_deletion = ifelse(is.na(surveys_for_deletion), number_of_surveys, number_of_surveys - surveys_for_deletion),
+  mutate(number_of_surveys = ifelse(is.na(number_of_surveys), 0, number_of_surveys),
+         surveys_for_deletion = ifelse(is.na(surveys_for_deletion), 0, surveys_for_deletion),
+         int.surveys_and_deletion = number_of_surveys - surveys_for_deletion,
          remaining_surveys = required_samples - int.surveys_and_deletion ) %>% 
-  select(-int.surveys_and_deletion) %>% 
+  left_join(df_for_colnames, by = "refugee_settlement") %>% 
+  rename(district_name = district_name.x) %>%
+  mutate(district_name = district_name.y) %>%
+  select(-c(int.surveys_and_deletion, district_name.y)) %>% 
   dt_with_modified_options()
 
 ```
@@ -198,11 +227,16 @@ df_updated_tool_data %>%
   group_by(district_name, sub_county_div) %>% 
   summarise(number_of_surveys = n()) %>% 
   arrange(district_name) %>% 
-  left_join(df_host_samp_per_sub_county, by = "sub_county_div") %>% 
+  right_join(df_host_samp_per_sub_county, by = "sub_county_div") %>% 
   left_join(df_cl_surveys_for_deletion, by = "sub_county_div") %>% 
-  mutate(int.surveys_and_deletion = ifelse(is.na(surveys_for_deletion), number_of_surveys, number_of_surveys - surveys_for_deletion),
+  mutate(number_of_surveys = ifelse(is.na(number_of_surveys), 0, number_of_surveys),
+         surveys_for_deletion = ifelse(is.na(surveys_for_deletion), 0, surveys_for_deletion),
+         int.surveys_and_deletion = number_of_surveys - surveys_for_deletion,
          remaining_surveys = required_samples - int.surveys_and_deletion ) %>% 
-  select(-int.surveys_and_deletion) %>% 
+  left_join(df_for_host_colnames, by = "sub_county_div") %>% 
+  rename(district_name = district_name.x) %>%
+  mutate(district_name = district_name.y) %>%
+  select(-c(int.surveys_and_deletion, district_name.y)) %>% 
   dt_with_modified_options()
 
 ```
