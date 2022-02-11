@@ -550,7 +550,32 @@ if(exists("df_c_logic_child_protection_risks_concerned_about_separated_from_pare
     logic_output$df_c_logic_child_protection_risks_concerned_about_separated_from_parents <- df_c_logic_child_protection_risks_concerned_about_separated_from_parents
   }
 }
+# child_protection_risks_concerned_about_violence_36 ------------------------
+df_c_logic_child_protection_risks_concerned_about_violence <- df_tool_data %>% 
+  filter(!child_protection_risks_concerned_about %in% c("physical_violence"),
+         child_experienced_violence %in% c("yes_I_experienced_this", "yes_only_my_siblings", "yes_both_me_and_my_siblings")) %>% 
+  mutate(i.check.type = "remove_option",
+         i.check.name = "child_protection_risks_concerned_about",
+         i.check.current_value = child_protection_risks_concerned_about,
+         i.check.value = "",
+         i.check.issue_id = "child_protection_risks_concerned_about_violence_36",
+         i.check.issue = glue("child_experienced_violence: {child_experienced_violence}"),
+         i.check.other_text = "",
+         i.check.checked_by = "",
+         i.check.checked_date = as_date(today()),
+         i.check.comment = "", 
+         i.check.reviewed = "",
+         i.check.adjust_log = "",
+         i.check.uuid_cl = "",
+         i.check.so_sm_choices = "") %>% 
+  dplyr::select(starts_with("i.check"))%>% 
+  rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
+if(exists("df_c_logic_child_protection_risks_concerned_about_violence")){
+  if(nrow(df_c_logic_child_protection_risks_concerned_about_violence) > 0){
+    logic_output$df_c_logic_child_protection_risks_concerned_about_violence <- df_c_logic_child_protection_risks_concerned_about_violence
+  }
+}
 # okay_parents_arrange_child_marriage_37 ----------------------------------
 df_c_logic_okay_parents_arrange_child_marriage_mismatch <- df_tool_data %>% 
   filter(
