@@ -47,7 +47,7 @@ df_tool_data <- readxl::read_excel("../inputs/UGA2109_Cross_Sectoral_Child_Prote
   filter(assent_child == "yes",  respondent_age > 11, respondent_age < 18,
          start_date > as_date("2022-01-30"), 
          !str_detect(string = point_number, pattern = fixed('test', ignore_case = TRUE)),
-         uuid %in% c("c122726c-6759-4876-92ea-882ac141cb62", "324c893e-187b-4a4e-a539-77fcdcb30fc0",
+         !uuid %in% c("c122726c-6759-4876-92ea-882ac141cb62", "324c893e-187b-4a4e-a539-77fcdcb30fc0",
                      "a25e0e6e-ba9d-4227-baea-1074fa406413", "35e1d8a4-d85d-458c-8552-33d0939e8744")
          )
 
