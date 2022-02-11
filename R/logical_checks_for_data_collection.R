@@ -638,4 +638,4 @@ if(exists("df_c_logic_okay_parents_arrange_child_marriage_mismatch_38")){
 df_logic_seperate_checks <- bind_rows(logic_seperate_output)
 
 # output the resulting data frame
-write_csv(x = df_logic_seperate_checks, file = paste0("outputs/", butteR::date_file_prefix(), "_logical_checks_caregiver.csv"), na = "")
+write_csv(x = df_logic_seperate_checks, file = paste0("outputs/", butteR::date_file_prefix(), "_logical_checks_child.csv"), na = "")
