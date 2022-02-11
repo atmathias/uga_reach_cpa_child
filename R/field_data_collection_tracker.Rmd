@@ -41,7 +41,9 @@ df_settlement_samples_required <- df_settlement_samples %>%
          refugee_settlement = str_replace_all(string = refugee_settlement, pattern = " ", replacement = "_")
          )
 
-df_host_samples_required <- readr::read_csv("../inputs/Host_community_child_survey_samples_definition.csv")%>% 
+df_host_samples <- readr::read_csv("../inputs/Host_community_child_survey_samples_definition.csv")
+
+df_host_samples_required <- df_host_samples %>% 
   rename(sub_county_div =  Sub_county ) %>%
   select(sub_county_div, sample_size) %>% 
   mutate(sub_county_div = str_to_lower(sub_county_div),
