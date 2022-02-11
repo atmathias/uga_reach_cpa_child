@@ -632,32 +632,6 @@ if(exists("df_c_logic_okay_parents_arrange_child_marriage_mismatch_38")){
     logic_seperate_output$df_c_logic_okay_parents_arrange_child_marriage_mismatch_38 <- df_c_logic_okay_parents_arrange_child_marriage_mismatch_38
   }
 }
-# children_experienced_sexual_violence_freq_mismatch_40 -------------------
-df_c_logic_children_experienced_sexual_violence <- df_tool_data %>% 
-  filter(children_experienced_sexual_violence == "yes", 
-         frequency_children_experience_sexual_violence == "never") %>% 
-  mutate(i.check.type = "change_response",
-         i.check.name = "child_protection_risks_witnessed",
-         i.check.current_value = child_protection_risks_witnessed,
-         i.check.value = "",
-         i.check.issue_id = "children_experienced_sexual_violence_freq_mismatch_40",
-         i.check.issue = glue("children_experienced_sexual_violence: {children_experienced_sexual_violence}, frequency_children_experience_sexual_violence: {frequency_children_experience_sexual_violence}"),
-         i.check.other_text = "",
-         i.check.checked_by = "",
-         i.check.checked_date = as_date(today()),
-         i.check.comment = "", 
-         i.check.reviewed = "",
-         i.check.adjust_log = "",
-         i.check.uuid_cl = "",
-         i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
-  rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
-
-if(exists("df_c_logic_children_experienced_sexual_violence")){
-  if(nrow(df_c_logic_children_experienced_sexual_violence) > 0){
-    logic_seperate_output$df_c_logic_children_experienced_sexual_violence <- df_c_logic_children_experienced_sexual_violence
-  }
-}
 
 # combined seperate logical checks ----------------------------------------------------------
 
