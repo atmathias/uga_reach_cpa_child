@@ -472,7 +472,7 @@ if(exists("df_c_logic_children_get_involved_in_harsh_work_protection_risks")){
   }
 }
 # frequency_children_get_involved_in_harsh_work_mismatch_33 ------------------------
-df_c_logic_children_get_involved_in_harsh_work_mismatch <- df_tool_data %>% 
+df_c_logic_children_get_involved_in_harsh_work_mismatch_33 <- df_tool_data %>% 
   filter(!child_protection_risks_concerned_about %in% c("child_labour"),
          frequency_children_get_involved_in_harsh_work != "never") %>% 
   mutate(i.check.type = "change_response",
@@ -492,9 +492,9 @@ df_c_logic_children_get_involved_in_harsh_work_mismatch <- df_tool_data %>%
   dplyr::select(starts_with("i.check"))%>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
-if(exists("df_c_logic_children_get_involved_in_harsh_work_mismatch")){
-  if(nrow(df_c_logic_children_get_involved_in_harsh_work_mismatch) > 0){
-    logic_seperate_output$df_c_logic_children_get_involved_in_harsh_work_mismatch <- df_c_logic_children_get_involved_in_harsh_work_mismatch
+if(exists("df_c_logic_children_get_involved_in_harsh_work_mismatch_33")){
+  if(nrow(df_c_logic_children_get_involved_in_harsh_work_mismatch_33) > 0){
+    logic_seperate_output$df_c_logic_children_get_involved_in_harsh_work_mismatch_33 <- df_c_logic_children_get_involved_in_harsh_work_mismatch_33
   }
 }
 # child_protection_risks_concerned_about_sexual_violence_34 ------------------------
