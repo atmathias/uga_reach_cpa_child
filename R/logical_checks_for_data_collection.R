@@ -394,7 +394,7 @@ df_c_logic_protection_services_for_child <- df_tool_data %>%
          i.check.other_text = "",
          i.check.checked_by = "",
          i.check.checked_date = as_date(today()),
-         i.check.comment = "", 
+         i.check.comment = "accept", 
          i.check.reviewed = "",
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
@@ -434,32 +434,32 @@ if(exists("df_c_logic_children_get_involved_in_harsh_work_protection_risks")){
     logic_seperate_output$df_c_logic_children_get_involved_in_harsh_work_protection_risks <- df_c_logic_children_get_involved_in_harsh_work_protection_risks
   }
 }
-# frequency_children_get_involved_in_harsh_work_mismatch_33 ------------------------
-df_c_logic_children_get_involved_in_harsh_work_mismatch_33 <- df_tool_data %>% 
-  filter(!child_protection_risks_concerned_about %in% c("child_labour"),
-         frequency_children_get_involved_in_harsh_work != "never") %>% 
-  mutate(i.check.type = "change_response",
-         i.check.name = "frequency_children_get_involved_in_harsh_work",
-         i.check.current_value = frequency_children_get_involved_in_harsh_work,
-         i.check.value = "",
-         i.check.issue_id = "frequency_children_get_involved_in_harsh_work_mismatch_33",
-         i.check.issue = glue("child_protection_risks_concerned_about: {child_protection_risks_concerned_about}"),
-         i.check.other_text = "",
-         i.check.checked_by = "",
-         i.check.checked_date = as_date(today()),
-         i.check.comment = "", 
-         i.check.reviewed = "",
-         i.check.adjust_log = "",
-         i.check.uuid_cl = "",
-         i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check")) %>% 
-  rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
-
-if(exists("df_c_logic_children_get_involved_in_harsh_work_mismatch_33")){
-  if(nrow(df_c_logic_children_get_involved_in_harsh_work_mismatch_33) > 0){
-    logic_seperate_output$df_c_logic_children_get_involved_in_harsh_work_mismatch_33 <- df_c_logic_children_get_involved_in_harsh_work_mismatch_33
-  }
-}
+# # frequency_children_get_involved_in_harsh_work_mismatch_33 ------------------------
+# df_c_logic_children_get_involved_in_harsh_work_mismatch_33 <- df_tool_data %>% 
+#   filter(!child_protection_risks_concerned_about %in% c("child_labour"),
+#          frequency_children_get_involved_in_harsh_work != "never") %>% 
+#   mutate(i.check.type = "change_response",
+#          i.check.name = "frequency_children_get_involved_in_harsh_work",
+#          i.check.current_value = frequency_children_get_involved_in_harsh_work,
+#          i.check.value = "",
+#          i.check.issue_id = "frequency_children_get_involved_in_harsh_work_mismatch_33",
+#          i.check.issue = glue("child_protection_risks_concerned_about: {child_protection_risks_concerned_about}"),
+#          i.check.other_text = "",
+#          i.check.checked_by = "",
+#          i.check.checked_date = as_date(today()),
+#          i.check.comment = "", 
+#          i.check.reviewed = "",
+#          i.check.adjust_log = "",
+#          i.check.uuid_cl = "",
+#          i.check.so_sm_choices = "") %>% 
+#   dplyr::select(starts_with("i.check")) %>% 
+#   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
+# 
+# if(exists("df_c_logic_children_get_involved_in_harsh_work_mismatch_33")){
+#   if(nrow(df_c_logic_children_get_involved_in_harsh_work_mismatch_33) > 0){
+#     logic_seperate_output$df_c_logic_children_get_involved_in_harsh_work_mismatch_33 <- df_c_logic_children_get_involved_in_harsh_work_mismatch_33
+#   }
+# }
 # child_protection_risks_concerned_about_sexual_violence_34 ------------------------
 # correction: (child_experience_sexual_violence:child_experienced_sexual_violence)
 df_c_logic_child_protection_risks_concerned_about_sexual_violence <- df_tool_data %>% 
