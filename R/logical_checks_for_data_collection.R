@@ -179,7 +179,7 @@ df_c_logic_hit_child_disagree_but_agree_reasons <- df_tool_data %>%
          i.check.other_text = "",
          i.check.checked_by = "",
          i.check.checked_date = as_date(today()),
-         i.check.comment = "",
+         i.check.comment = "accept",
          i.check.reviewed = "",
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
@@ -199,7 +199,7 @@ df_c_logic_parents_responsible_to_provide_child_contradict <- df_tool_data %>%
   mutate(i.check.type = "change_response",
          i.check.name = "parents_responsible_to_provide_child_enough_food",
          i.check.current_value = parents_responsible_to_provide_child_enough_food,
-         i.check.value = "",
+         i.check.value = "NA",
          i.check.issue_id = "parents_responsible_to_provide_child_8",
          i.check.issue = glue("parents_responsible_to_provide_child_enough_food: {parents_responsible_to_provide_child_enough_food}, parents_responsible_to_provide_all_child_needs: {parents_responsible_to_provide_all_child_needs}"),
          i.check.other_text = "",
@@ -235,7 +235,7 @@ df_c_logic_children_get_involved_in_harsh_work_mismatch <- df_tool_data %>%
   mutate(i.check.type = "change_response",
          i.check.name = "frequency_children_get_involved_in_harsh_work",
          i.check.current_value = frequency_children_get_involved_in_harsh_work,
-         i.check.value = "",
+         i.check.value = "NA",
          i.check.issue_id = "frequency_children_get_involved_in_harsh_work_9",
          i.check.issue = glue("child_labour_economic_types: {child_labour_economic_types}"),
          i.check.other_text = "",
@@ -266,7 +266,7 @@ df_c_logic_child_labour_economic_types <- df_tool_data %>%
                                                                           "sand_mining", "producing_and_or_trafficking_or_selling_drugs", 
                                                                           "sale_or_trafficking_of_children", "sexual_exploitation", 
                                                                           "stone_quarrying", "working_with_armed_groups")) %>% 
-  mutate(i.check.type = "remove_option",
+  mutate(i.check.type = "add_option",
          i.check.name = "child_labour_economic_types",
          i.check.current_value = child_labour_economic_types,
          i.check.value = "",
@@ -280,13 +280,12 @@ df_c_logic_child_labour_economic_types <- df_tool_data %>%
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check")) %>% 
-  rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = "")) %>% 
-  separate(col = "current_value", into = c("x_1", "x_2", "x_3", "x_4", "x_5", "x_6"), sep = " " , remove = FALSE) %>%
+  separate(col = "specific_types_of_harsh_labour_child_involved_since_covid", into = c("x_1", "x_2", "x_3", "x_4", "x_5", "x_6"), sep = " " , remove = FALSE) %>%
   pivot_longer(cols = "x_1" : "x_6", names_to = "split_var", values_to = "current_value_created") %>% 
-  filter(!is.na(current_value_created)) %>% 
-  mutate(value = current_value_created) %>% 
-  select(-c("split_var", "current_value_created"))
+  filter(!is.na(current_value_created), !str_detect(string = child_labour_economic_types, pattern = current_value_created) ) %>% 
+  mutate(i.check.value = current_value_created) %>% 
+  dplyr::select(starts_with("i.check")) %>% 
+  rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = "")) 
 
 if(exists("df_c_logic_child_labour_economic_types")){
   if(nrow(df_c_logic_child_labour_economic_types) > 0){
@@ -310,7 +309,7 @@ df_c_logic_child_labour_economic_types_harsh_work <- df_tool_data %>%
          i.check.other_text = "",
          i.check.checked_by = "",
          i.check.checked_date = as_date(today()),
-         i.check.comment = "", 
+         i.check.comment = "accept", 
          i.check.reviewed = "",
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
@@ -343,7 +342,7 @@ df_c_logic_child_labour_protection_services_sought <- df_tool_data %>%
          i.check.other_text = "",
          i.check.checked_by = "",
          i.check.checked_date = as_date(today()),
-         i.check.comment = "", 
+         i.check.comment = "accept", 
          i.check.reviewed = "",
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
@@ -369,7 +368,7 @@ df_c_logic_protection_services_for_child_a <- df_tool_data %>%
          i.check.other_text = "",
          i.check.checked_by = "",
          i.check.checked_date = as_date(today()),
-         i.check.comment = "", 
+         i.check.comment = "accept", 
          i.check.reviewed = "",
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
