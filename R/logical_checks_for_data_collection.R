@@ -21,7 +21,7 @@ df_c_logic_okay_parents_arrange_child_marriage_not_agree <- df_tool_data %>%
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_okay_parents_arrange_child_marriage_not_agree")){
@@ -48,7 +48,7 @@ df_c_logic_okay_parents_arrange_child_marriage_agree <- df_tool_data %>%
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_okay_parents_arrange_child_marriage_agree")){
@@ -134,7 +134,7 @@ girl_less_18_years_get_married_agree_reach_puberty_b <- girl_less_18_years_get_m
 
 df_c_logic_okay_girl_get_married_agree_reach_puberty <- bind_rows(girl_less_18_years_get_married_agree_reach_puberty, 
                                                                   girl_less_18_years_get_married_agree_reach_puberty_b) %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_okay_girl_get_married_agree_reach_puberty")){
@@ -171,7 +171,7 @@ mother_to_hit_his_child_agree <- father_to_hit_his_child_agree %>%
 
 df_c_logic_hit_child_agree_but_disagree_reasons <- bind_rows(father_to_hit_his_child_agree,
                                                              mother_to_hit_his_child_agree) %>%
-  dplyr::select(starts_with("i.check"))%>%
+  dplyr::select(starts_with("i.check")) %>%
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_hit_child_agree_but_disagree_reasons")){
@@ -208,7 +208,7 @@ mother_to_hit_his_child_disagree <- father_to_hit_his_child_disagree %>%
 
 df_c_logic_hit_child_disagree_but_agree_reasons <- bind_rows(father_to_hit_his_child_disagree,
                                                              mother_to_hit_his_child_disagree) %>%
-  dplyr::select(starts_with("i.check"))%>%
+  dplyr::select(starts_with("i.check")) %>%
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_hit_child_disagree_but_agree_reasons")){
@@ -236,7 +236,7 @@ df_c_logic_parents_responsible_to_provide_child_contradict <- df_tool_data %>%
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_parents_responsible_to_provide_child_contradict")){
@@ -266,7 +266,7 @@ df_c_logic_children_get_involved_in_harsh_work_mismatch <- df_tool_data %>%
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_children_get_involved_in_harsh_work_mismatch")){
@@ -300,7 +300,7 @@ df_c_logic_child_labour_economic_types <- df_tool_data %>%
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = "")) %>% 
   separate(col = "current_value", into = c("x_1", "x_2", "x_3", "x_4", "x_5", "x_6"), sep = " " , remove = FALSE) %>%
   pivot_longer(cols = "x_1" : "x_6", names_to = "split_var", values_to = "current_value_created") %>% 
@@ -335,7 +335,7 @@ df_c_logic_child_labour_economic_types_harsh_work <- df_tool_data %>%
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = "")) %>% 
   separate(col = "current_value", into = c("x_1", "x_2", "x_3", "x_4", "x_5", "x_6"), sep = " " , remove = FALSE) %>%
   pivot_longer(cols = "x_1" : "x_6", names_to = "split_var", values_to = "current_value_created") %>% 
@@ -368,7 +368,7 @@ df_c_logic_child_labour_protection_services_sought <- df_tool_data %>%
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = "")) 
 
 if(exists("df_c_logic_child_labour_protection_services_sought")){
@@ -447,7 +447,7 @@ df_c_logic_children_get_involved_in_harsh_work_protection_risks <- df_tool_data 
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_children_get_involved_in_harsh_work_protection_risks")){
@@ -473,7 +473,7 @@ df_c_logic_children_get_involved_in_harsh_work_mismatch_33 <- df_tool_data %>%
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_children_get_involved_in_harsh_work_mismatch_33")){
@@ -500,7 +500,7 @@ df_c_logic_child_protection_risks_concerned_about_sexual_violence <- df_tool_dat
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_child_protection_risks_concerned_about_sexual_violence")){
@@ -526,7 +526,7 @@ df_c_logic_child_protection_risks_concerned_about_separated_from_parents <- df_t
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_child_protection_risks_concerned_about_separated_from_parents")){
@@ -552,7 +552,7 @@ df_c_logic_child_protection_risks_concerned_about_violence <- df_tool_data %>%
          i.check.adjust_log = "",
          i.check.uuid_cl = "",
          i.check.so_sm_choices = "") %>% 
-  dplyr::select(starts_with("i.check"))%>% 
+  dplyr::select(starts_with("i.check")) %>% 
   rename_with(~str_replace(string = .x, pattern = "i.check.", replacement = ""))
 
 if(exists("df_c_logic_child_protection_risks_concerned_about_violence")){
