@@ -226,11 +226,15 @@ if(exists("df_c_logic_parents_responsible_to_provide_child_contradict")){
 }
 # frequency_children_get_involved_in_harsh_work_9 -------------------------
 df_c_logic_children_get_involved_in_harsh_work_mismatch <- df_tool_data %>% 
-  filter(child_labour_economic_types %in% c("bonded_labour_or_slavery", "construction", 
-                                            "charcoal_burning", "handling_of_heavy_loads", "mining", 
-                                            "sand_mining", "producing_and_or_trafficking_or_selling_drugs", 
-                                            "sale_or_trafficking_of_children_for_labour_purposes", "sexual_exploitation", 
-                                            "stone_quarrying", "working_with_armed_groups"),
+  filter(!is.na(child_labour_economic_types), 
+         child_labour_economic_types != "other", 
+         length(intersect(str_split(string = child_labour_economic_types, pattern = " ", 
+                                    simplify = TRUE), 
+                          c("bonded_labour_or_slavery", "construction", 
+                           "charcoal_burning", "handling_of_heavy_loads", "mining", 
+                           "sand_mining", "producing_and_or_trafficking_or_selling_drugs", 
+                           "sale_or_trafficking_of_children_for_labour_purposes", "sexual_exploitation", 
+                           "stone_quarrying", "working_with_armed_groups"))) > 0,
          frequency_children_get_involved_in_harsh_work == "never") %>% 
   mutate(i.check.type = "change_response",
          i.check.name = "frequency_children_get_involved_in_harsh_work",
@@ -256,16 +260,18 @@ if(exists("df_c_logic_children_get_involved_in_harsh_work_mismatch")){
 }
 # child_labour_economic_types_10 ------------------------------------------
 df_c_logic_child_labour_economic_types <- df_tool_data %>% 
-  filter(!child_labour_economic_types %in% c("bonded_labour_or_slavery", "construction", "charcoal_burning", 
-                                             "handling_of_heavy_loads", "mining", "sand_mining", 
-                                             "producing_and_or_trafficking_or_selling_drugs", 
-                                             "sale_or_trafficking_of_children_for_labour_purposes", "sexual_exploitation", 
-                                             "stone_quarrying", "working_with_armed_groups"),
-         specific_types_of_harsh_labour_child_involved_since_covid %in% c("bonded_labour", "slavery", "construction", 
-                                                                          "charcoal_burning", "handling_of_heavy_loads", 
-                                                                          "sand_mining", "producing_and_or_trafficking_or_selling_drugs", 
-                                                                          "sale_or_trafficking_of_children", "sexual_exploitation", 
-                                                                          "stone_quarrying", "working_with_armed_groups")) %>% 
+  filter(length(intersect(str_split(string = child_labour_economic_types, pattern = " ", simplify = TRUE), 
+                          c("bonded_labour_or_slavery", "construction", "charcoal_burning", 
+                            "handling_of_heavy_loads", "mining", "sand_mining", 
+                            "producing_and_or_trafficking_or_selling_drugs", 
+                            "sale_or_trafficking_of_children_for_labour_purposes", "sexual_exploitation", 
+                            "stone_quarrying", "working_with_armed_groups"))) < 1,
+         length(intersect(str_split(string = specific_types_of_harsh_labour_child_involved_since_covid, pattern = " ", simplify = TRUE), 
+                          c("bonded_labour", "slavery", "construction", 
+                            "charcoal_burning", "handling_of_heavy_loads", 
+                            "sand_mining", "producing_and_or_trafficking_or_selling_drugs", 
+                            "sale_or_trafficking_of_children", "sexual_exploitation", 
+                            "stone_quarrying", "working_with_armed_groups"))) > 0) %>% 
   mutate(i.check.type = "add_option",
          i.check.name = "child_labour_economic_types",
          i.check.current_value = child_labour_economic_types,
