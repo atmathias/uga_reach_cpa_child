@@ -83,3 +83,13 @@ new_vars_sm <- new_vars %>%
 # add new columns to the raw data
 df_raw_data_modified <- df_raw_data %>% 
   butteR:::mutate_batch(nm = new_vars_sm$new_cols, value = F )
+
+# make some cleanup
+kbo_modified <- kobold::kobold(survey = df_survey %>% filter(name %in% colnames(df_raw_data_modified)), 
+                               choices = df_choises_modified, 
+                               data = df_raw_data_modified, 
+                               cleaning = df_cleaning_log,
+                               risks_mentioned,
+                               harm_mentioned,
+                               child_age_info)
+kbo_cleaned <- kobold::kobold_cleaner(kbo_modified)
