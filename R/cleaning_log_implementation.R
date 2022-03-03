@@ -20,3 +20,9 @@ df_raw_data <- readxl::read_excel(path = "inputs/UGA2109_Cross_Sectoral_Child_Pr
   filter(consent_two == "yes", respondent_age >= 12, i.check.start_date > as_date("2022-01-30"), 
          !str_detect(string = point_number, pattern = fixed('test', ignore_case = TRUE))
   )
+# cleaning log
+df_cleaning_log <- read_csv("inputs/combined_checks_child.csv") %>% 
+  mutate(adjust_log = ifelse(is.na(adjust_log), "apply_suggested_change", adjust_log)) %>%
+  filter(adjust_log != "delete_log", !is.na(value), !is.na(uuid)) %>% 
+  mutate(sheet = NA, index = NA, relevant = NA) %>% 
+  select(uuid, type, name, value, issue_id, sheet, index, relevant, issue)
