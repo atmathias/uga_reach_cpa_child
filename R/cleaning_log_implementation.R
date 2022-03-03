@@ -127,3 +127,8 @@ for (cur_sm_col in sm_colnames) {
 }
 
 df_final_cleaned_data <- df_handle_sm_data
+
+# write final modified data
+
+write_csv(df_final_cleaned_data, file = paste0("outputs/", butteR::date_file_prefix(), "_clean_data_child.csv"))
+write_csv(df_final_cleaned_data, file = paste0("inputs/", "clean_data_child.csv"))
