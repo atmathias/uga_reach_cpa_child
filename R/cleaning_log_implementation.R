@@ -79,3 +79,7 @@ new_vars_sm <- new_vars %>%
   left_join(df_survey_sm, by = "name") %>% 
   filter(q_type == "sm") %>% 
   mutate(new_cols = paste0(name,"/",choice))
+
+# add new columns to the raw data
+df_raw_data_modified <- df_raw_data %>% 
+  butteR:::mutate_batch(nm = new_vars_sm$new_cols, value = F )
